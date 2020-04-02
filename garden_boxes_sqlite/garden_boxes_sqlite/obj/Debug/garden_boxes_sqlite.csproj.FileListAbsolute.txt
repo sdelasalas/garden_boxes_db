@@ -1,0 +1,5 @@
+/Users/stacy/Projects/gardenbox_db/garden-boxes/garden_boxes_sqlite/garden_boxes_sqlite/bin/Debug/garden_boxes_sqlite.exe
+/Users/stacy/Projects/gardenbox_db/garden-boxes/garden_boxes_sqlite/garden_boxes_sqlite/bin/Debug/garden_boxes_sqlite.pdb
+/Users/stacy/Projects/gardenbox_db/garden-boxes/garden_boxes_sqlite/garden_boxes_sqlite/obj/Debug/garden_boxes_sqlite.csprojAssemblyReference.cache
+/Users/stacy/Projects/gardenbox_db/garden-boxes/garden_boxes_sqlite/garden_boxes_sqlite/obj/Debug/garden_boxes_sqlite.exe
+/Users/stacy/Projects/gardenbox_db/garden-boxes/garden_boxes_sqlite/garden_boxes_sqlite/obj/Debug/garden_boxes_sqlite.pdb
