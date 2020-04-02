@@ -7,4 +7,5 @@ Please create a database that will hold plants. You don't need to add more than 
 
 ## To run
 
-Clone this repo then type `ruby program.rb`
+Clone this repo in visual studio and hit play
+
