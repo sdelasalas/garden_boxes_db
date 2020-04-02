@@ -26,13 +26,24 @@ namespace garden_boxes_sqlite
             Console.WriteLine("Enter the width of your box: ");
             width = Console.ReadLine();
             int userIntWidth = Convert.ToInt32(width);
-
-            
             
             Console.WriteLine("Your garden box area is: " + userIntLength * userIntWidth + " and the perimeter of your box is: " + ((2 * userIntLength) + (2 * userIntWidth)) + ".");
            
 
             //use database to read back that number of veggies that can be planted
+            while (true)
+            {
+                //present a menu of vegetables to plant
+                Console.WriteLine("What vegetable would you like to plant? (Please select letter.)");
+                Console.WriteLine("a.  Carrots");
+                Console.WriteLine("b.  Corn");
+                Console.WriteLine("c.  Beets");
+                Console.WriteLine("d.  Quit");
+
+                //get answer choice and convert to lower
+                string userChoice = Console.ReadLine().ToLower();
+            }
+
 
             connection.Close();
         }
