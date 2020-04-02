@@ -27,6 +27,13 @@ namespace garden_boxes_sqlite
             width = Console.ReadLine();
             int userIntWidth = Convert.ToInt32(width);
 
+            
+            
+            Console.WriteLine("Your garden box area is: " + userIntLength * userIntWidth + " and the perimeter of your box is: " + ((2 * userIntLength) + (2 * userIntWidth)) + ".");
+           
+
+            //use database to read back that number of veggies that can be planted
+
             connection.Close();
         }
         
