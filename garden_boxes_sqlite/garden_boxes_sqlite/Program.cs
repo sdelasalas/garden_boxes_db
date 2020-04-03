@@ -65,7 +65,7 @@ namespace garden_boxes_sqlite
                     SqliteDataReader reader = command.ExecuteReader();
                     reader.Read();
                     double plantPoss = reader.GetDouble(reader.GetOrdinal("PlantPoss"));
-                    Console.WriteLine(plantPoss);
+                  
 
                     Console.WriteLine($"You can plant " + ((userIntLength * userIntWidth) * plantPoss) + " ears of corn in your garden!");
                     reader.Close();
@@ -73,16 +73,26 @@ namespace garden_boxes_sqlite
 
                 else if (userChoice == "beets")
                 {
-                    //SELECT Beets from DB
+                    Console.WriteLine("You picked Beets!");
+                    //Get Beets calc from data base
+                    string sql = $"SELECT PlantPoss FROM Veggies1 WHERE SeedType = '{userChoice}'";
+                    SqliteCommand command = new SqliteCommand(sql, connection);
+                    SqliteDataReader reader = command.ExecuteReader();
+                    reader.Read();
+                    double plantPoss = reader.GetDouble(reader.GetOrdinal("PlantPoss"));
+                   
+
+                    Console.WriteLine($"You can plant " + ((userIntLength * userIntWidth) * plantPoss) + " beet in your garden!");
+                    reader.Close();
                 }
 
                 else if (userChoice == "quit")
                 {
-                    //while = false
+                    break;
                 }
 
                 else
-                    Console.WriteLine("I don't know what  " + userChoice + " are. Please enter another.");
+                    Console.WriteLine("I don't know what  " + userChoice + " are. Please enter one of the listed options.");
 
             }
 
