@@ -47,18 +47,28 @@ namespace garden_boxes_sqlite
                 {
                     Console.WriteLine("You picked Carrots!");
                     //Get Carrot calc from data base
-                    string sql = $"SELECT PlantPoss FROM Veggies WHERE SeedType = '{userChoice}'";
+                    string sql = $"SELECT PlantPoss FROM Veggies1 WHERE SeedType = '{userChoice}'";
                     SqliteCommand command = new SqliteCommand(sql, connection);
                     SqliteDataReader reader = command.ExecuteReader();
                     reader.Read();
-                        int plantPoss = Convert.ToInt32(reader["PlantPoss"]);
-                    Console.WriteLine($"You can plant " + (plantPoss * (userIntLength * userIntWidth)) + "carrots in your garden!");
+                    int plantPoss = Convert.ToInt32(reader["PlantPoss"]);
+                    Console.WriteLine($"You can plant " + (plantPoss * (userIntLength * userIntWidth)) + " carrots in your garden!");
                     reader.Close();
                 }
 
                 else if (userChoice == "corn")
                 {
-                    //SELECT Corn from DB
+                    Console.WriteLine("You picked Corn!");
+                    //Get Corn calc from data base
+                    string sql = $"SELECT PlantPoss FROM Veggies1 WHERE SeedType = '{userChoice}'";
+                    SqliteCommand command = new SqliteCommand(sql, connection);
+                    SqliteDataReader reader = command.ExecuteReader();
+                    reader.Read();
+                    double plantPoss = reader.GetDouble(reader.GetOrdinal("PlantPoss"));
+                    Console.WriteLine(plantPoss);
+
+                    Console.WriteLine($"You can plant " + ((userIntLength * userIntWidth) * plantPoss) + " ears of corn in your garden!");
+                    reader.Close();
                 }
 
                 else if (userChoice == "beets")
