@@ -14,19 +14,29 @@ namespace garden_boxes_sqlite
             SqliteConnection connection = new SqliteConnection(connectionString);
             //connection.Open();
             connection.Open();
+            
             Console.WriteLine($"You picked " + (userChoice) + " !");
             //Get calc from data base
-            string sql = $"SELECT PlantPoss FROM Veggies1 WHERE SeedType = '{userChoice}'";
+            //$"SELECT PlantPoss FROM Veggies1 WHERE SeedType = '{userChoice}'";
+
+            string sql = $"IF SeedType = '{userChoice}' BEGIN SELECT PlantPoss FROM Veggies1 END ELSE BEGIN PRINT 'I am not sure what '{userChoice}' are.  Please select from menu of veggies.'";
+
+
+
+
             SqliteCommand command = new SqliteCommand(sql, connection);
+ 
             SqliteDataReader reader = command.ExecuteReader();
             reader.Read();
-            //int plantPoss = Convert.ToInt32(reader["PlantPoss"]);
             double plantPoss = reader.GetDouble(reader.GetOrdinal("PlantPoss"));
+
+            
             Console.WriteLine($"You can plant " + (area * plantPoss) + (userChoice) + " in your garden!");
             reader.Close();
+            
             connection.Close();
         }
-
+        
         public static void Main(string[] args)
         {
 
@@ -65,7 +75,6 @@ namespace garden_boxes_sqlite
                 string userChoice = Console.ReadLine().ToLower();
 
 
-
                 if (userChoice == "quit")
                 {
                     break;
@@ -76,7 +85,7 @@ namespace garden_boxes_sqlite
                     veggieChoice(area, userChoice);
                 }
 
-                //    Console.WriteLine("I don't know what  " + userChoice + " are. Please enter one of the listed options.");
+                
 
             }
 
