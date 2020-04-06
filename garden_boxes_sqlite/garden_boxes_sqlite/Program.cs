@@ -26,8 +26,10 @@ namespace garden_boxes_sqlite
             Console.WriteLine("Enter the width of your box: ");
             width = Console.ReadLine();
             int @userIntWidth = Convert.ToInt32(width);
-            
-            Console.WriteLine("Your garden box area is: " + @userIntLength * @userIntWidth + " and the perimeter of your box is: " + ((2 * @userIntLength) + (2 * @userIntWidth)) + ".");
+
+            int area;
+            area = userIntWidth * userIntLength;
+            Console.WriteLine("Your garden box area is: " + area + " and the perimeter of your box is: " + ((2 * @userIntLength) + (2 * @userIntWidth)) + ".");
            
 
             //use database to read back that number of veggies that can be planted
@@ -52,7 +54,7 @@ namespace garden_boxes_sqlite
                     SqliteDataReader reader = command.ExecuteReader();
                     reader.Read();
                     int plantPoss = Convert.ToInt32(reader["PlantPoss"]);
-                    Console.WriteLine($"You can plant " + (plantPoss * (userIntLength * userIntWidth)) + " carrots in your garden!");
+                    Console.WriteLine($"You can plant " + (plantPoss * area) + " carrots in your garden!");
                     reader.Close();
                 }
 
@@ -67,7 +69,7 @@ namespace garden_boxes_sqlite
                     double plantPoss = reader.GetDouble(reader.GetOrdinal("PlantPoss"));
                   
 
-                    Console.WriteLine($"You can plant " + ((userIntLength * userIntWidth) * plantPoss) + " ears of corn in your garden!");
+                    Console.WriteLine($"You can plant " + (area * plantPoss) + " ears of corn in your garden!");
                     reader.Close();
                 }
 
@@ -82,7 +84,7 @@ namespace garden_boxes_sqlite
                     double plantPoss = reader.GetDouble(reader.GetOrdinal("PlantPoss"));
                    
 
-                    Console.WriteLine($"You can plant " + ((userIntLength * userIntWidth) * plantPoss) + " beet in your garden!");
+                    Console.WriteLine($"You can plant " + (area * plantPoss) + " beet in your garden!");
                     reader.Close();
                 }
 
