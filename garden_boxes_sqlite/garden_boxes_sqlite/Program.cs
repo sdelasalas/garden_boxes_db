@@ -7,7 +7,7 @@ namespace garden_boxes_sqlite
     class MainClass
 
     {
-        static void veggieChoice(int area, string userChoice)
+        static string veggieChoice(int area, string userChoice)
         {
             // create and open a db connection
             string connectionString = @"Data Source=/Users/stacy/Projects/gardenbox_db/garden-boxes/database.sqlite";
@@ -17,24 +17,31 @@ namespace garden_boxes_sqlite
             
             Console.WriteLine($"You picked " + (userChoice) + " !");
             //Get calc from data base
-            //$"SELECT PlantPoss FROM Veggies1 WHERE SeedType = '{userChoice}'";
+           
 
-            string sql = $"IF SeedType = '{userChoice}' BEGIN SELECT PlantPoss FROM Veggies1 END ELSE BEGIN PRINT 'I am not sure what '{userChoice}' are.  Please select from menu of veggies.'";
-
-
-
-
+            string sql = $"SELECT PlantPoss FROM Veggies1 WHERE SeedType = '{userChoice}'";
+            
             SqliteCommand command = new SqliteCommand(sql, connection);
  
             SqliteDataReader reader = command.ExecuteReader();
             reader.Read();
-            double plantPoss = reader.GetDouble(reader.GetOrdinal("PlantPoss"));
 
-            
-            Console.WriteLine($"You can plant " + (area * plantPoss) + (userChoice) + " in your garden!");
-            reader.Close();
-            
-            connection.Close();
+            string result;
+
+            if (reader.IsDBNull(reader.GetOrdinal("PlantPoss")))
+            {
+                result = $"{userChoice} not currently in the menu. Please select an option from the menu.";
+            }
+            else
+            {
+                double plantPoss = reader.GetDouble(reader.GetOrdinal("PlantPoss"));
+                reader.Close();
+
+                connection.Close();
+                result = ($"You can plant " + (area * plantPoss) + (userChoice) + " in your garden!");
+
+            }
+            return result;
         }
         
         public static void Main(string[] args)
@@ -82,7 +89,9 @@ namespace garden_boxes_sqlite
 
                 else
                 {
-                    veggieChoice(area, userChoice);
+                    string result = veggieChoice(area, userChoice);
+                    Console.WriteLine(result);
+                    
                 }
 
                 
