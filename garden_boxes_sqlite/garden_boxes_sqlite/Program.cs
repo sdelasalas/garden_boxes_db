@@ -15,10 +15,9 @@ namespace garden_boxes_sqlite
             //connection.Open();
             connection.Open();
             
-            Console.WriteLine($"You picked " + (userChoice) + " !");
+            Console.WriteLine($"You picked " + (userChoice) + "!");
             //Get calc from data base
            
-
             string sql = $"SELECT PlantPoss FROM Veggies1 WHERE SeedType = '{userChoice}'";
             
             SqliteCommand command = new SqliteCommand(sql, connection);
@@ -30,7 +29,7 @@ namespace garden_boxes_sqlite
 
             if (reader.IsDBNull(reader.GetOrdinal("PlantPoss")))
             {
-                result = $"{userChoice} not currently in the menu. Please select an option from the menu.";
+                result = $"{userChoice} not currently available. Please select an option from the menu.";
             }
             else
             {
@@ -38,35 +37,63 @@ namespace garden_boxes_sqlite
                 reader.Close();
 
                 connection.Close();
-                result = ($"You can plant " + (area * plantPoss) + (userChoice) + " in your garden!");
-
+                result = ($"You can plant " + (area * plantPoss) + " " + (userChoice) + " in your garden!");
             }
             return result;
         }
-        
+
+        static int GetLength()
+        {
+            Console.WriteLine("How long is your garden box?");
+            string userInput = Console.ReadLine();
+            int length = Convert.ToInt32(userInput);
+            return length;
+        }
+
+        static int GetWidth()
+        {
+            Console.WriteLine("How wide is your garden box?");
+            string userInput = Console.ReadLine();
+            int width = Convert.ToInt32(userInput);
+            return width;
+        }
+
+        static int SetArea(int length, int width)
+        {  
+            int area = length * width;
+            return area;
+        }
+
+        static int SetPerimeter(int length, int width)
+        {
+            int perimeter = (2 * length) + (2 * width);
+            return perimeter;
+        }
+
         public static void Main(string[] args)
         {
 
-            
-
             Console.WriteLine("Welcome to Garden Boxes!");
 
-          
-            string length;
-            Console.WriteLine("Enter the length of your box: ");
-            length = Console.ReadLine();
-            int userIntLength = Convert.ToInt32(length);
+            //Call get length function
+            int length = GetLength();
+            //print out length
+            Console.WriteLine("The length of your item is " + length);
 
-            string width;
-            Console.WriteLine("Enter the width of your box: ");
-            width = Console.ReadLine();
-            int userIntWidth = Convert.ToInt32(width);
+            //Call get width function
+            int width = GetWidth();
+            //print out width
+            Console.WriteLine("The width of your item is " + width);
 
-            int area;
-            area = userIntWidth * userIntLength;
-            Console.WriteLine("Your garden box area is: " + area + " and the perimeter of your box is: " + ((2 * userIntLength) + (2 * userIntWidth)) + ".");
+            //Call area function
+            int area = SetArea(length, width);
+            //print area
+            Console.WriteLine("Your garden box area is " + area);
 
-
+            //Call perimeter function
+            int perimeter = SetPerimeter(length, width);
+            //print area
+            Console.WriteLine("Your garden box perimeter is " + perimeter);
 
             //use database to read back that number of veggies that can be planted
             while (true)
@@ -81,29 +108,19 @@ namespace garden_boxes_sqlite
                 //get Veggie choice and convert to lower
                 string userChoice = Console.ReadLine().ToLower();
 
-
                 if (userChoice == "quit")
                 {
-                    break;
+                   break;
                 }
-
                 else
                 {
-                    string result = veggieChoice(area, userChoice);
-                    Console.WriteLine(result);
-                    
+                   string result = veggieChoice(area, userChoice);
+                   Console.WriteLine(result);
                 }
-
-                
 
             }
 
-
-
         }
-
-        
-
-        
+    
     }
 }
