@@ -7,15 +7,30 @@ namespace garden_boxes_sqlite
     class MainClass
 
     {
-        
-        public static void Main(string[] args)
+        static void veggieChoice(int area, string userChoice)
         {
-
             // create and open a db connection
             string connectionString = @"Data Source=/Users/stacy/Projects/gardenbox_db/garden-boxes/database.sqlite";
             SqliteConnection connection = new SqliteConnection(connectionString);
             //connection.Open();
             connection.Open();
+            Console.WriteLine($"You picked " + (userChoice) + " !");
+            //Get calc from data base
+            string sql = $"SELECT PlantPoss FROM Veggies1 WHERE SeedType = '{userChoice}'";
+            SqliteCommand command = new SqliteCommand(sql, connection);
+            SqliteDataReader reader = command.ExecuteReader();
+            reader.Read();
+            //int plantPoss = Convert.ToInt32(reader["PlantPoss"]);
+            double plantPoss = reader.GetDouble(reader.GetOrdinal("PlantPoss"));
+            Console.WriteLine($"You can plant " + (area * plantPoss) + (userChoice) + " in your garden!");
+            reader.Close();
+            connection.Close();
+        }
+
+        public static void Main(string[] args)
+        {
+
+            
 
             Console.WriteLine("Welcome to Garden Boxes!");
 
@@ -49,63 +64,28 @@ namespace garden_boxes_sqlite
                 //get Veggie choice and convert to lower
                 string userChoice = Console.ReadLine().ToLower();
 
-                if (userChoice == "carrots")
-                {
-                    Console.WriteLine($"You picked " + (userChoice) + " !");
-                    //Get Carrot calc from data base
-                    string sql = $"SELECT PlantPoss FROM Veggies1 WHERE SeedType = '{userChoice}'";
-                    SqliteCommand command = new SqliteCommand(sql, connection);
-                    SqliteDataReader reader = command.ExecuteReader();
-                    reader.Read();
-                    //int plantPoss = Convert.ToInt32(reader["PlantPoss"]);
-                    double plantPoss = reader.GetDouble(reader.GetOrdinal("PlantPoss"));
-                    Console.WriteLine($"You can plant " + (area * plantPoss) + (userChoice) + " in your garden!");
-                    reader.Close();
-                }
 
-                else if (userChoice == "corn")
-                {
-                    Console.WriteLine($"You picked " + (userChoice) + " !");
-                    //Get Corn calc from data base
-                    string sql = $"SELECT PlantPoss FROM Veggies1 WHERE SeedType = '{userChoice}'";
-                    SqliteCommand command = new SqliteCommand(sql, connection);
-                    SqliteDataReader reader = command.ExecuteReader();
-                    reader.Read();
-                    double plantPoss = reader.GetDouble(reader.GetOrdinal("PlantPoss"));
-                  
 
-                    Console.WriteLine($"You can plant " + (area * plantPoss) + (userChoice) + " in your garden!");
-                    reader.Close();
-                }
-
-                else if (userChoice == "beets")
-                {
-                    Console.WriteLine($"You picked " + (userChoice) + " !");
-                    //Get Beets calc from data base
-                    string sql = $"SELECT PlantPoss FROM Veggies1 WHERE SeedType = '{userChoice}'";
-                    SqliteCommand command = new SqliteCommand(sql, connection);
-                    SqliteDataReader reader = command.ExecuteReader();
-                    reader.Read();
-                    double plantPoss = reader.GetDouble(reader.GetOrdinal("PlantPoss"));
-                   
-
-                    Console.WriteLine($"You can plant " + (area * plantPoss) + (userChoice) + " in your garden!");
-                    reader.Close();
-                }
-
-                else if (userChoice == "quit")
+                if (userChoice == "quit")
                 {
                     break;
                 }
 
                 else
-                    Console.WriteLine("I don't know what  " + userChoice + " are. Please enter one of the listed options.");
+                {
+                    veggieChoice(area, userChoice);
+                }
+
+                //    Console.WriteLine("I don't know what  " + userChoice + " are. Please enter one of the listed options.");
 
             }
 
 
-            connection.Close();
+
         }
+
+        
+
         
     }
 }
