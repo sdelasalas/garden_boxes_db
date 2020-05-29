@@ -10,10 +10,11 @@ namespace garden_boxes_sqlite
         static string veggieChoice(int area, string userChoice)
         {
             // create and open a db connection
-            string connectionString = @"Data Source=/Users/stacy/Projects/gardenbox_db/garden-boxes/database.sqlite";
+            string connectionString = @"Data Source=/Users/stacy/Documents/Academy_Pgh/Projects/gardenbox_db/garden-boxes/database.sqlite";
+            
             SqliteConnection connection = new SqliteConnection(connectionString);
-            //connection.Open();
             connection.Open();
+           
             
             Console.WriteLine($"You picked " + (userChoice) + "!");
             //Get calc from data base
@@ -42,56 +43,80 @@ namespace garden_boxes_sqlite
             return result;
         }
 
-        static int GetLength()
-        {
-            Console.WriteLine("How long is your garden box?");
-            string userInput = Console.ReadLine();
-            int length = Convert.ToInt32(userInput);
-            return length;
-        }
+        //static int Measurements(int length, int width)
+        //{
+            //Console.WriteLine("How long is your garden box?");
+            //string userLength = Console.ReadLine();
+            //int uLength = Convert.ToInt32(userLength);
 
-        static int GetWidth()
-        {
-            Console.WriteLine("How wide is your garden box?");
-            string userInput = Console.ReadLine();
-            int width = Convert.ToInt32(userInput);
-            return width;
-        }
 
-        static int SetArea(int length, int width)
+            //Console.WriteLine("How wide is your garden box?");
+            //string userWidth = Console.ReadLine();
+            //int uWidth = Convert.ToInt32(userWidth);
+            //    return uWidth && uLength;
+
+            //}
+
+            //    static int GetLength()
+            //{
+            //    Console.WriteLine("How long is your garden box?");
+            //    string userInput = Console.ReadLine();
+            //    int length = Convert.ToInt32(userInput);
+            //    return length;
+            //}
+
+            //static int GetWidth()
+            //{
+            //    Console.WriteLine("How wide is your garden box?");
+            //    string userInput = Console.ReadLine();
+            //    int width = Convert.ToInt32(userInput);
+            //    return width;
+            //}
+
+            static int SetArea(int uLength, int uWidth)
         {  
-            int area = length * width;
+            int area = uLength * uWidth;
             return area;
         }
 
-        static int SetPerimeter(int length, int width)
+        static int SetPerimeter(int uLength, int uWidth)
         {
-            int perimeter = (2 * length) + (2 * width);
+            int perimeter = (2 * uLength) + (2 * uWidth);
             return perimeter;
         }
 
         public static void Main(string[] args)
         {
+        
 
             Console.WriteLine("Welcome to Garden Boxes!");
 
-            //Call get length function
-            int length = GetLength();
+            Console.WriteLine("How long is your garden box?");
+            string userLength = Console.ReadLine();
+            int uLength = Convert.ToInt32(userLength);
+
+            Console.WriteLine("How wide is your garden box?");
+            string userWidth = Console.ReadLine();
+            int uWidth = Convert.ToInt32(userWidth);
+
+            //Call measurement function
+            //int size = Measurements(int length, int width);
             //print out length
-            Console.WriteLine("The length of your item is " + length);
+            //Console.WriteLine("The length of your item is " + length);
+            //Console.WriteLine("The width of your item is " + width);
 
             //Call get width function
-            int width = GetWidth();
+            //int width = userWidth();
             //print out width
-            Console.WriteLine("The width of your item is " + width);
+            //Console.WriteLine("The width of your item is " + width);
 
             //Call area function
-            int area = SetArea(length, width);
+            int area = SetArea(uLength, uWidth);
             //print area
             Console.WriteLine("Your garden box area is " + area);
 
             //Call perimeter function
-            int perimeter = SetPerimeter(length, width);
+            int perimeter = SetPerimeter(uLength, uWidth);
             //print area
             Console.WriteLine("Your garden box perimeter is " + perimeter);
 
